@@ -20,6 +20,7 @@ A new Flutter project.
 
 ```bash
 cd flutter_app
+flutter pub add http
 flutter pub get
 flutter run
 ```

@@ -24,6 +24,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'password': passCtrl.text,
       },
     );
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
 
     var data = json.decode(response.body);
     if (data['success']) {

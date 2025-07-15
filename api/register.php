@@ -1,12 +1,21 @@
 <?php
 include 'db.php';
 
-$name = $_POST['name'];
-$email = $_POST['email'];
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+header('Content-Type: application/json');
+
+$name = $_POST['name'] ?? '';
+$email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
+
+if (!$name || !$email || !$password) {
+    echo json_encode(["success" => false, "error" => "Missing fields"]);
+    exit;
+}
+
+$hash = password_hash($password, PASSWORD_DEFAULT);
 
 $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $name, $email, $password);
+$stmt->bind_param("sss", $name, $email, $hash);
 
 if ($stmt->execute()) {
     echo json_encode(["success" => true]);

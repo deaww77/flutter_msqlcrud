@@ -14,7 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String msg = "";
 
   Future<void> login() async {
-    var url = Uri.parse('http://10.0.2.2/api/login.php');
+    var url = Uri.parse('http://10.0.2.2/flutter_crud/api/login.php');
     var response = await http.post(
       url,
       body: {'email': emailCtrl.text, 'password': passCtrl.text},

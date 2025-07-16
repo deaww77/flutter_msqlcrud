@@ -15,24 +15,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String msg = "";
 
   Future<void> register() async {
-    var url = Uri.parse('http://10.0.2.2/api/register.php');
-    var response = await http.post(
-      url,
-      body: {
-        'name': nameCtrl.text,
-        'email': emailCtrl.text,
-        'password': passCtrl.text,
-      },
-    );
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    var url = Uri.parse('http://10.0.2.2/flutter_crud/api/register.php');
 
-    var data = json.decode(response.body);
-    if (data['success']) {
-      Navigator.pop(context);
-    } else {
+    try {
+      var response = await http.post(
+        url,
+        body: {
+          'name': nameCtrl.text,
+          'email': emailCtrl.text,
+          'password': passCtrl.text,
+        },
+      );
+
+      print('📦 Status Code: ${response.statusCode}');
+      print('📦 Raw Response Body: ${response.body}');
+
+      // ✅ เช็คว่ามาเป็น JSON จริงไหม ก่อน decode
+      if (response.headers['content-type']?.contains('application/json') ==
+          true) {
+        var data = json.decode(response.body);
+        if (data['success']) {
+          Navigator.pop(context);
+        } else {
+          setState(() {
+            msg = "❌ ลงทะเบียนไม่สำเร็จ: ${data['error'] ?? 'Unknown error'}";
+          });
+        }
+      } else {
+        setState(() {
+          msg = "❌ ไม่ได้ JSON: ${response.body}";
+        });
+      }
+    } catch (e) {
+      print('❌ ERROR: $e');
       setState(() {
-        msg = "ลงทะเบียนไม่สำเร็จ: ${data['error']}";
+        msg = "เกิดข้อผิดพลาด: $e";
       });
     }
   }

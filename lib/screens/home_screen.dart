@@ -12,7 +12,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List users = [];
 
   Future<void> fetchUsers() async {
-    var url = Uri.parse('http://10.0.2.2/api/get_users.php');
+    var url = Uri.parse('http://10.0.2.2/flutter_crud/api/get_users.php');
     var res = await http.get(url);
     setState(() {
       users = json.decode(res.body);
@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> deleteUser(String id) async {
-    var url = Uri.parse('http://10.0.2.2/api/delete_user.php');
+    var url = Uri.parse('http://10.0.2.2/flutter_crud/api/delete_user.php');
     await http.post(url, body: {'id': id});
     fetchUsers();
   }

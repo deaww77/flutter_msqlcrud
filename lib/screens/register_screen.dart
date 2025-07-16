@@ -27,10 +27,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         },
       );
 
-      print('📦 Status Code: ${response.statusCode}');
-      print('📦 Raw Response Body: ${response.body}');
+      print('Status Code: ${response.statusCode}');
+      print('Raw Response Body: ${response.body}');
 
-      // ✅ เช็คว่ามาเป็น JSON จริงไหม ก่อน decode
       if (response.headers['content-type']?.contains('application/json') ==
           true) {
         var data = json.decode(response.body);
@@ -38,16 +37,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Navigator.pop(context);
         } else {
           setState(() {
-            msg = "❌ ลงทะเบียนไม่สำเร็จ: ${data['error'] ?? 'Unknown error'}";
+            msg = " ลงทะเบียนไม่สำเร็จ: ${data['error'] ?? 'Unknown error'}";
           });
         }
       } else {
         setState(() {
-          msg = "❌ ไม่ได้ JSON: ${response.body}";
+          msg = "ไม่ได้ JSON: ${response.body}";
         });
       }
     } catch (e) {
-      print('❌ ERROR: $e');
+      print('ERROR: $e');
       setState(() {
         msg = "เกิดข้อผิดพลาด: $e";
       });

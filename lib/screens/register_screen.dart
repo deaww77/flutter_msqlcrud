@@ -34,7 +34,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
           true) {
         var data = json.decode(response.body);
         if (data['success']) {
-          Navigator.pop(context);
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('ลงทะเบียนสำเร็จ'),
+              content: Text('คุณสามารถเข้าสู่ระบบได้แล้ว'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Text('ตกลง'),
+                ),
+              ],
+            ),
+          );
         } else {
           setState(() {
             msg = " ลงทะเบียนไม่สำเร็จ: ${data['error'] ?? 'Unknown error'}";

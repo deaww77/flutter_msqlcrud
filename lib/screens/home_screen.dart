@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_crud/components/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("สมาชิกทั้งหมด")),
+      drawer: const MyDrawer(),
       body: ListView.builder(
         itemCount: users.length,
         itemBuilder: (context, index) {

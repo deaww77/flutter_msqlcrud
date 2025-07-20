@@ -46,7 +46,30 @@ class _HomeScreenState extends State<HomeScreen> {
             subtitle: Text(user['email']),
             trailing: IconButton(
               icon: Icon(Icons.delete, color: Colors.red),
-              onPressed: () => deleteUser(user['id']),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text("ยืนยันการลบ"),
+                    content: Text(
+                      "คุณแน่ใจหรือไม่ว่าต้องการลบผู้ใช้ ${user['name']}?",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text("ยกเลิก"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          deleteUser(user['id']);
+                          Navigator.pop(context);
+                        },
+                        child: Text("ยืนยัน"),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           );
         },

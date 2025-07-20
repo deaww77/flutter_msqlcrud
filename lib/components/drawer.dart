@@ -16,10 +16,13 @@ class _MyDrawerState extends State<MyDrawer> {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(color: Colors.blue),
-            child: Text('Drawer Header'),
+            child: Text(
+              'Flutter PHP CRUD',
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
           ),
-          ListTile(title: const Text('Item 1'), onTap: () {}),
-          ListTile(title: const Text('Item 2'), onTap: () {}),
+          ListTile(title: const Text('Home'), onTap: () {}),
+          ListTile(title: const Text('Menu'), onTap: () {}),
         ],
       ),
     );
